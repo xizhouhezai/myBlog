@@ -7,7 +7,7 @@ title: 西洲何在
 subtitle: 西洲何在的博客
 description: 一个分享技术与心情的博客
 author: xizhouhezai
-language: zh-CN
+language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -71,3 +71,5 @@ deploy:
   type: git
   repo: https://github.com/xizhouhezai/xizhouhezai.github.io.git
   branch: master
+
+avatar: /uploads/avatar.jpg
