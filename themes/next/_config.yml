@@ -37,10 +37,10 @@ seo: false
 # When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
 menu:
   home: /
-  categories: /categories
+  categories: categories
   #about: /about
   archives: /archives
-  tags: /tags
+  #tags: tags
   #sitemap: /sitemap.xml
   #commonweal: /404.html
 
@@ -290,8 +290,12 @@ mathjax:
 # Hypercomments
 #hypercomments_id:
 
+#Share
+sharesdk: true
+shareSDKappkey: 1e8fadd704020
+
 # Gentie productKey
-#gentie_productKey:
+gentie_productKey: 2b46d3d0db134bdd9364bfdd2027b46f
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
@@ -520,3 +524,4 @@ images: images
 
 # Theme version
 version: 5.1.0
+
