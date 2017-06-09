@@ -6,5 +6,15 @@ date: 2017-06-02 17:15:43
 comments: true
 ---
 
-[Hexo](/categories/Hexo/) (2)
-[html](/categories/html/) (0)
+[Hexo](/categories/Hexo/) (3)
+[html](/categories/html/) (1)
+[css](/categories/css/) (0)
+[javascript](/categories/html/) (0)
+[php](/categories/php/) (0)
+[node.js](/categories/node.js/) (0)
+[react.js](/categories/react.js/) (0)
+[vue.js](/categories/vue.js/) (0)
+[angular.js](/categories/angular.js/) (0)
+[mySQL](/categories/mySQL/) (0)
+[python](/categories/python/) (0)
+
