@@ -7,7 +7,7 @@ comments: true
 ---
 
 [Hexo](/categories/Hexo/) (3)
-[html](/categories/html/) (1)
+[html](/categories/html/) (2)
 [css](/categories/css/) (0)
 [javascript](/categories/html/) (0)
 [php](/categories/php/) (0)
