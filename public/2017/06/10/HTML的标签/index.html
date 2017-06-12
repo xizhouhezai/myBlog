@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="一个分享技术与心情的博客">
+<meta name="description" content="HTML是如此的简单，相信大部分学过HTML的人都是这样觉得的，不得不说HTML的确没什么难的，只要几小时甚至几十分钟就能掌握，所以这篇文章我会着重讲一点HTML的学前知识。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTML的标签">
 <meta property="og:url" content="http://yoursite.com/2017/06/10/HTML的标签/index.html">
 <meta property="og:site_name" content="西洲何在">
-<meta property="og:description" content="一个分享技术与心情的博客">
-<meta property="og:updated_time" content="2017-06-10T06:52:53.375Z">
+<meta property="og:description" content="HTML是如此的简单，相信大部分学过HTML的人都是这样觉得的，不得不说HTML的确没什么难的，只要几小时甚至几十分钟就能掌握，所以这篇文章我会着重讲一点HTML的学前知识。">
+<meta property="og:updated_time" content="2017-06-12T10:06:59.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML的标签">
-<meta name="twitter:description" content="一个分享技术与心情的博客">
+<meta name="twitter:description" content="HTML是如此的简单，相信大部分学过HTML的人都是这样觉得的，不得不说HTML的确没什么难的，只要几小时甚至几十分钟就能掌握，所以这篇文章我会着重讲一点HTML的学前知识。">
 
 
 
@@ -353,7 +353,24 @@
       
 
       
-        
+        <p>HTML是如此的简单，相信大部分学过HTML的人都是这样觉得的，不得不说HTML的确没什么难的，只要几小时甚至几十分钟就能掌握，所以这篇文章我会着重讲一点HTML的学前知识。</p>
+<a id="more"></a>
+<h2 id="1-URL"><a href="#1-URL" class="headerlink" title="1.URL"></a>1.URL</h2><p>url的中文翻译是统一资源定位器，通俗来讲，就是我们说的路径，路径又分为相对路径和绝对路径</p>
+<h4 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h4><p>从文件当前所在位置出发查找目标位置<br> 1、目标文件与当前文件在同一文件夹下，直接写文件名<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">src=<span class="string">"1.jpg"</span></div></pre></td></tr></table></figure></p>
+<p> 2、目标文件在子文件夹下，子文件夹名/文件名<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">src=<span class="string">"images/1.jpg"</span></div></pre></td></tr></table></figure></p>
+<p> 3、目标文件在当前文件的上一级目录，../文件名<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">src=<span class="string">"../1.jpg"</span></div></pre></td></tr></table></figure></p>
+<p> 4、目标文件在当前文件的上一级目录的子目录里  ../子目录名/文件名<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">src=<span class="string">"../images/1.jpg"</span></div></pre></td></tr></table></figure></p>
+<p>当目标文件是当前站点下的文件时，可使用相对路径。</p>
+<h4 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://www.sohu.com/images/1.jpg</div><div class="line">协议名   主机名     目录名 文件名</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ftp://202.112.111.12/images/1.jpg</div><div class="line">协议名  主机IP地址   目录名 文件名</div></pre></td></tr></table></figure>
+<p>从最根本的协议开始完整的表述路径<br>无论在哪个文件里都能找到目标路径<br>当目标文件是其他主机上的文件时，必须使用绝对路径。</p>
+<h2 id="常见的图片格式"><a href="#常见的图片格式" class="headerlink" title="常见的图片格式"></a>常见的图片格式</h2><p>GIF  最多只支持256色。支持动画<br>JPG  支持真彩色<br>PNG  支持透明和半透明，支持真彩色</p>
+<h2 id="HTML的头部声明"><a href="#HTML的头部声明" class="headerlink" title="HTML的头部声明"></a>HTML的头部声明</h2><p>头部声明我们也叫&lt;!DOCTYPE&gt; 声明，在 HTML 4.01 中,&lt;!DOCTYPE&gt; 声明引用 DTD,因为 HTML 4.01 基于 SGML。DTD 是一套关于标记符的语法规则。它是XML1.0版规格得一部分,是html文件的验证机制,属于html文件组成的一部分。 DTD 规定了标记语言的规则，这样浏览器才能正确地呈现内容。</p>
+<p>HTML5 不基于 SGML，所以不需要引用 DTD。</p>
+<p>DTD：三种文档类型：S（Strict）、T（Transitional）、F（Frameset）。<br>Strict：如果您需要干净的标记，免于表现层的混乱，请使用此类型。请与层叠样式表（CSS）配合使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01//EN"</span> <span class="string">"http://www.w3.org/TR/html4/strict.dtd"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>Transitional：DTD 可包含 W3C 所期望移入样式表的呈现属性和元素。如果您的读者使用了不支持层叠样式表（CSS）的浏览器以至于您不得不使用 HTML 的呈现特性时使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>Frameset： DTD 应当被用于带有框架的文档。除 frameset 元素取代了 body 元素之外，Frameset DTD 等同于 Transitional DTD<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Frameset//EN"</span> <span class="string">"http://www.w3.org/TR/html4/frameset.dtd"</span>&gt;</div></pre></td></tr></table></figure></p>
+
       
     </div>
 
@@ -460,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -512,6 +538,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-URL"><span class="nav-number">1.</span> <span class="nav-text">1.URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相对路径"><span class="nav-number">1.0.1.</span> <span class="nav-text">相对路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对路径"><span class="nav-number">1.0.2.</span> <span class="nav-text">绝对路径</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的图片格式"><span class="nav-number">2.</span> <span class="nav-text">常见的图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML的头部声明"><span class="nav-number">3.</span> <span class="nav-text">HTML的头部声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
