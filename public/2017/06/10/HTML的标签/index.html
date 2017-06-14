@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/10/HTML的标签/index.html">
 <meta property="og:site_name" content="西洲何在">
 <meta property="og:description" content="HTML是如此的简单，相信大部分学过HTML的人都是这样觉得的，不得不说HTML的确没什么难的，只要几小时甚至几十分钟就能掌握，所以这篇文章我会着重讲一点HTML的学前知识。">
-<meta property="og:updated_time" content="2017-06-12T10:06:59.960Z">
+<meta property="og:updated_time" content="2017-06-14T10:04:56.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML的标签">
 <meta name="twitter:description" content="HTML是如此的简单，相信大部分学过HTML的人都是这样觉得的，不得不说HTML的确没什么难的，只要几小时甚至几十分钟就能掌握，所以这篇文章我会着重讲一点HTML的学前知识。">
@@ -370,6 +370,14 @@
 <p>DTD：三种文档类型：S（Strict）、T（Transitional）、F（Frameset）。<br>Strict：如果您需要干净的标记，免于表现层的混乱，请使用此类型。请与层叠样式表（CSS）配合使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01//EN"</span> <span class="string">"http://www.w3.org/TR/html4/strict.dtd"</span>&gt;</div></pre></td></tr></table></figure></p>
 <p>Transitional：DTD 可包含 W3C 所期望移入样式表的呈现属性和元素。如果您的读者使用了不支持层叠样式表（CSS）的浏览器以至于您不得不使用 HTML 的呈现特性时使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</div></pre></td></tr></table></figure></p>
 <p>Frameset： DTD 应当被用于带有框架的文档。除 frameset 元素取代了 body 元素之外，Frameset DTD 等同于 Transitional DTD<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Frameset//EN"</span> <span class="string">"http://www.w3.org/TR/html4/frameset.dtd"</span>&gt;</div></pre></td></tr></table></figure></p>
+<p>html5作为现在的主流方向，他的头部声明简单明了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div></pre></td></tr></table></figure></p>
+<p>这就是HTML5的头部声明了</p>
+<h2 id="HTML的结构"><a href="#HTML的结构" class="headerlink" title="HTML的结构"></a>HTML的结构</h2><p>在HTML的结构中除却头部声明，他由一个html标签包裹，里面分为头标签head和主体标签body</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;html&gt;</div><div class="line">	&lt;head&gt;</div><div class="line">		这是头部</div><div class="line">	&lt;/head&gt;</div><div class="line">	&lt;body&gt;</div><div class="line">		这是主体</div><div class="line">	&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>这些是每个HTML文件必须包含的元素</p>
+<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><p>head标签里的内容不会直接显示在页面的内容之中的，他主要是用来包裹用于声明页面性质和引用外部资源标签的父标签</p>
+<p>附：父标签与子标签</p>
+<p>当标签里面包裹着标签，我们就叫被包裹的标签为子标签，外层包裹的叫父标签，如<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;   // 父标签</div><div class="line">	&lt;head&gt;   // 子标签</div><div class="line">		这是head</div><div class="line">	&lt;/head&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -548,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-URL"><span class="nav-number">1.</span> <span class="nav-text">1.URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相对路径"><span class="nav-number">1.0.1.</span> <span class="nav-text">相对路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对路径"><span class="nav-number">1.0.2.</span> <span class="nav-text">绝对路径</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的图片格式"><span class="nav-number">2.</span> <span class="nav-text">常见的图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML的头部声明"><span class="nav-number">3.</span> <span class="nav-text">HTML的头部声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-URL"><span class="nav-number">1.</span> <span class="nav-text">1.URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相对路径"><span class="nav-number">1.0.1.</span> <span class="nav-text">相对路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对路径"><span class="nav-number">1.0.2.</span> <span class="nav-text">绝对路径</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的图片格式"><span class="nav-number">2.</span> <span class="nav-text">常见的图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML的头部声明"><span class="nav-number">3.</span> <span class="nav-text">HTML的头部声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML的结构"><span class="nav-number">4.</span> <span class="nav-text">HTML的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#head标签"><span class="nav-number">4.1.</span> <span class="nav-text">head标签</span></a></li></ol></li></ol></div>
             
 
           </div>

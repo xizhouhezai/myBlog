@@ -72,3 +72,42 @@ Frameset： DTD 应当被用于带有框架的文档。除 frameset 元素取代
 ``` bash
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 ```
+
+html5作为现在的主流方向，他的头部声明简单明了
+``` bash
+<!DOCTYPE HTML>
+```
+这就是HTML5的头部声明了
+
+## HTML的结构
+
+在HTML的结构中除却头部声明，他由一个html标签包裹，里面分为头标签head和主体标签body
+
+``` bash
+<!DOCTYPE HTML>
+<html>
+	<head>
+		这是头部
+	</head>
+	<body>
+		这是主体
+	</body>
+</html>
+```
+
+这些是每个HTML文件必须包含的元素
+
+### head标签
+
+head标签里的内容不会直接显示在页面的内容之中的，他主要是用来包裹用于声明页面性质和引用外部资源标签的父标签
+
+附：父标签与子标签
+
+当标签里面包裹着标签，我们就叫被包裹的标签为子标签，外层包裹的叫父标签，如
+``` bash
+<html>   // 父标签
+	<head>   // 子标签
+		这是head
+	</head>
+</html>
+```
