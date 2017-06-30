@@ -136,3 +136,5 @@ $ hexo new 文件名
 ![create repository](http://orks6qu1s.bkt.clouddn.com/setting.png)
 ![create repository](http://orks6qu1s.bkt.clouddn.com/theme.png)
 ![create repository](http://orks6qu1s.bkt.clouddn.com/selectTheme.png)
+
+第四步：在浏览器地址栏输入username.github.io，这时出现你刚才选择的主题欢迎页面，说明已经成功

@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/20/css前传/index.html">
 <meta property="og:site_name" content="西洲何在">
 <meta property="og:description" content="css是什么？为什么会出现css？它有什么神奇之处？初学者肯定都会有这几个疑问，这篇文章我会一一介绍，顺便解决在HTML中留下的几个坑。">
-<meta property="og:updated_time" content="2017-06-20T07:59:23.303Z">
+<meta property="og:updated_time" content="2017-06-30T10:17:07.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="css前传">
 <meta name="twitter:description" content="css是什么？为什么会出现css？它有什么神奇之处？初学者肯定都会有这几个疑问，这篇文章我会一一介绍，顺便解决在HTML中留下的几个坑。">
@@ -354,7 +354,51 @@
 
       
         <p>css是什么？为什么会出现css？它有什么神奇之处？<br>初学者肯定都会有这几个疑问，这篇文章我会一一介绍，顺便解决在HTML中留下的几个坑。</p>
+<a id="more"></a>
+<h2 id="css是什么？"><a href="#css是什么？" class="headerlink" title="css是什么？"></a>css是什么？</h2><p>在HTML中我介绍过用HTML的属性为HTML增加一些让我们在网页中可见的一些外观，比如长高，背景色等等，但是当我们使用了大量的属性的时候，会发现标签变得臃肿，且不易维护，代码中内容和属性杂糅，无法阅读，使用大量属性又无法重用，比如两个p，都是一样的背景色，却要连续使用两次属性去设置同样的值，而在实际项目中，都会要求代码可读性强，易维护，可重用，这时候css自然的应运而生，css可以把HTML表现的样式分开，而HTML只关注内容，从而使得代码更加简洁明了，易维护，可重用。</p>
+<p>CSS全称Cascading Style Sheet，翻译过来就是层叠样式表，又称级联样式表，简称样式表。</p>
+<h3 id="css的特点"><a href="#css的特点" class="headerlink" title="css的特点"></a>css的特点</h3><p>1、实现内容与表现相分离<br>2、提高了代码的可重用性和可维护性</p>
+<h3 id="HTML属性-与-CSS-样式的使用原则"><a href="#HTML属性-与-CSS-样式的使用原则" class="headerlink" title="HTML属性 与 CSS 样式的使用原则:"></a>HTML属性 与 CSS 样式的使用原则:</h3><p>1、W3C 建议尽量使用 CSS样式取代HTML属性<br>2、HTML中的专有属性，无法通过CSS取代的只能选择html属性，如 rowspan、colspan</p>
+<h2 id="如何使用CSS"><a href="#如何使用CSS" class="headerlink" title="如何使用CSS"></a>如何使用CSS</h2><p>既然已经知道了CSS的好处，那么如何在HTML中使用CSS呢？</p>
+<h3 id="1、内联方式"><a href="#1、内联方式" class="headerlink" title="1、内联方式"></a>1、内联方式</h3><pre><code>别名：行内样式、内联样式
+特点：将样式属性定义在html标签中
+语法：
+   将样式定义在标签的 style 属性中&lt;div style=&quot;&quot;&gt;&lt;/div&gt;
+   style属性值 ： 是以 ; 隔开的多个 属性/值 对的内容
+   属性 与 值 之间 通过  :  连接
+   &lt;div style=&quot;属性:值;属性:值;&quot;&gt;&lt;/div&gt;
 
+   常用的属性和值:
+   属性            值
+   color           颜色英文名称
+   font-size       以 px/pt 作为单位的数字
+   background-color 颜色英文名称
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;p style=<span class="string">"background-color:red;font-size:16px"</span>&gt;</div><div class="line">	这里是一段文本</div><div class="line">&lt;/p&gt;</div></pre></td></tr></table></figure>
+<h3 id="2、内部样式表"><a href="#2、内部样式表" class="headerlink" title="2、内部样式表"></a>2、内部样式表</h3><pre><code>    特点：将 &quot;样式规则&quot; 放在 &lt;style&gt;的元素内
+    1、在 &lt;head&gt;中添加&lt;style&gt;元素
+    2、在 &lt;style&gt; 中增加若干样式规则
+
+样式规则:
+   1、选择器 : 规范页面中哪些元素能够使用定义好的样式（在这里我不会解释选择器，大家只要按
+   着这样定义即可，我会在css选择器着重讲解css选择器）
+   2、样式声明 : 到底元素长的什么样
+
+   选择器{
+   样式声明;
+   样式声明;
+
+   color:red;
+   font-size:18px;
+   background-color:green;
+   }
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;head&gt;</div><div class="line">    	.</div><div class="line">    	.</div><div class="line">    	.</div><div class="line">	&lt;style&gt;</div><div class="line">	    p &#123;</div><div class="line">			color:red;</div><div class="line">			font-size:18px;</div><div class="line">			background-color:green;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;p&gt;这里是一段文本&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h3 id="3、外部样式表"><a href="#3、外部样式表" class="headerlink" title="3、外部样式表"></a>3、外部样式表</h3><pre><code>  特点：
+1、将样式定义在 一个外部的 CSS文件中(以 .css 作为后缀名称的文本文件)
+2、在 css 文件中 添加若干 样式规则
+3、在任何html网页中 引入 独立的 css 文件
+   在 head 中 增加以下标记 对外部样式表进行引入
+   &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css文件地址&quot;&gt;
+</code></pre>
       
     </div>
 
@@ -465,8 +509,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -517,6 +570,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#css是什么？"><span class="nav-number">1.</span> <span class="nav-text">css是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#css的特点"><span class="nav-number">1.1.</span> <span class="nav-text">css的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML属性-与-CSS-样式的使用原则"><span class="nav-number">1.2.</span> <span class="nav-text">HTML属性 与 CSS 样式的使用原则:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用CSS"><span class="nav-number">2.</span> <span class="nav-text">如何使用CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、内联方式"><span class="nav-number">2.1.</span> <span class="nav-text">1、内联方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、内部样式表"><span class="nav-number">2.2.</span> <span class="nav-text">2、内部样式表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、外部样式表"><span class="nav-number">2.3.</span> <span class="nav-text">3、外部样式表</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
