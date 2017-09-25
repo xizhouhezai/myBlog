@@ -121,7 +121,7 @@ $ hexo new 文件名
 
 首先你要注册一个github账号，[注册地址](https://github.com/)
 
-注册号账号后，登录github，这是一个英文网站，英文基础不好的同学不要怕，你们不需要操作很多东西，只要按照我的方法一步步来，是很简单的，因为我的英语水平也不咋地，可以说很烂
+注册账号后，登录github，这是一个英文网站，英文基础不好的同学不要怕，你们不需要操作很多东西，只要按照方法一步步来，是很简单的，因为我的英语水平也不咋地，可以说很烂
 
 第一步：新建一个仓库，new repository
 
@@ -137,4 +137,43 @@ $ hexo new 文件名
 ![create repository](http://orks6qu1s.bkt.clouddn.com/theme.png)
 ![create repository](http://orks6qu1s.bkt.clouddn.com/selectTheme.png)
 
-第四步：在浏览器地址栏输入username.github.io，这时出现你刚才选择的主题欢迎页面，说明已经成功
+第四步：在浏览器地址栏输入username.github.io，这时出现你刚才选择的主题欢迎页面，说明已经成功，这时候可以clone下项目，删除里面生成的主题文件，以防止把hexo生成的静态文件传入时覆盖
+
+#### 将hexo生成的静态文件上传至服务器
+
+在完成github page搭建后，我们只要把hexo生成的静态文件上传到github即可，那么怎么生成静态文件和上传呢？这里我们要先了解hexo的配置文件_config.yml。这个文件是用来改变hexo主页的一些属性的，比如作者，博客描述等。如下图：
+![config](http://orks6qu1s.bkt.clouddn.com/config.png)
+
+它的路径在你创建的项目的根目录下，用编辑器打开就能进行编辑。
+
+1.生成静态文件
+
+生成静态文件很简单，只要在项目的根目录下打开命令窗口，运行hexo deploy即可
+
+``` bash
+$ hexo generate(or hexo g)
+```
+
+2.配置_config.yml
+
+打开_config.yml，只要在尾部加上
+
+``` bash
+deploy:
+  type: git
+  repo: https://github.com/yourgithub/yourgithub.github.io.git(你的github项目地址)
+  branch: master
+```
+
+![deploy](http://orks6qu1s.bkt.clouddn.com/deploy.png)
+
+保存好后，在命令窗口执行hexo deploy
+
+
+``` bash
+$ hexo deploy(or hexo d)
+```
+执行hexo d过程中会让你输入github的密码，输入密码回车即可，如果上传成功的话，会在github项目里看到如下目录
+![deploysuccess](http://orks6qu1s.bkt.clouddn.com/deploysuccess.png)
+
+<font color=#0099ff size=4 face="黑体">最后的最后，只要在浏览器里输入yourgithubname.github.io查看效果即可</font>

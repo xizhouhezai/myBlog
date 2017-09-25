@@ -1,0 +1,870 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/avatar.jpg?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前端开发日异月新，怎么可以使我们更好或者更舒服的去做开发呢？我想作为前端开发者来说，肯定都会思考这个问题。在没有接触node.js前，我在做一些静态页面时，经常会来回的切换到浏览器刷新页面，来查看页面效果，这种感觉实在让人崩溃，但是在接触node.js后，发现了一些非常好用的工具，webpack就是其中之一，webpack的火爆，正因为他简单的配置，丰富的集成，使得gulp和grunt都在逐渐逊色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack实现代码热更新">
+<meta property="og:url" content="http://yoursite.com/2017/09/15/webpack实现代码热更新/index.html">
+<meta property="og:site_name" content="西洲何在">
+<meta property="og:description" content="前端开发日异月新，怎么可以使我们更好或者更舒服的去做开发呢？我想作为前端开发者来说，肯定都会思考这个问题。在没有接触node.js前，我在做一些静态页面时，经常会来回的切换到浏览器刷新页面，来查看页面效果，这种感觉实在让人崩溃，但是在接触node.js后，发现了一些非常好用的工具，webpack就是其中之一，webpack的火爆，正因为他简单的配置，丰富的集成，使得gulp和grunt都在逐渐逊色">
+<meta property="og:image" content="http://orks6qu1s.bkt.clouddn.com/webpack.config.js.png">
+<meta property="og:updated_time" content="2017-09-18T06:14:50.345Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack实现代码热更新">
+<meta name="twitter:description" content="前端开发日异月新，怎么可以使我们更好或者更舒服的去做开发呢？我想作为前端开发者来说，肯定都会思考这个问题。在没有接触node.js前，我在做一些静态页面时，经常会来回的切换到浏览器刷新页面，来查看页面效果，这种感觉实在让人崩溃，但是在接触node.js后，发现了一些非常好用的工具，webpack就是其中之一，webpack的火爆，正因为他简单的配置，丰富的集成，使得gulp和grunt都在逐渐逊色">
+<meta name="twitter:image" content="http://orks6qu1s.bkt.clouddn.com/webpack.config.js.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/15/webpack实现代码热更新/"/>
+
+
+
+
+
+  <title> webpack实现代码热更新 | 西洲何在 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">西洲何在</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">西洲何在的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/15/webpack实现代码热更新/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xizhouhezai">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="西洲何在">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                webpack实现代码热更新
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T16:54:30+08:00">
+                2017-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">node.js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/09/15/webpack实现代码热更新/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前端开发日异月新，怎么可以使我们更好或者更舒服的去做开发呢？我想作为前端开发者来说，肯定都会思考这个问题。在没有接触node.js前，我在做一些静态页面时，经常会来回的切换到浏览器刷新页面，来查看页面效果，这种感觉实在让人崩溃，但是在接触node.js后，发现了一些非常好用的工具，webpack就是其中之一，webpack的火爆，正因为他简单的配置，丰富的集成，使得gulp和grunt都在逐渐逊色，这里我将讲讲webpack实现代码的热更新和生成一个前端工程化项目。</p>
+<a id="more"></a>
+<h3 id="一-安装webpack"><a href="#一-安装webpack" class="headerlink" title="一.安装webpack"></a>一.安装webpack</h3><p>安装webpack的前提是需要node的npm包管理的支持，在这里我就不赘述node的安装了，大家可以自行去<a href="http://nodejs.cn/" target="_blank" rel="external">node</a>(<font color="#f00">戳这里去node中文网下载和查看帮助文档</font>)官网下载安装。</p>
+<p>如果你已经安装好node，那么安装webpack将十分容易，任意地方，打开命令行工具，我们先进行全局安装，输入以下命令即可安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install -g webpack</div></pre></td></tr></table></figure>
+<font color="#f00"><br>附：<br>如果安装失败，很可能因为是使用国外的资源，导致安装失败，在这里我们可以使用一个好用的切换镜像资源的工具nvm，同样他也需要使用npm安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install -g nvm</div></pre></td></tr></table></figure><br><br>安装好nvm后，就可以任意切换镜像了，比如使用淘宝的镜像<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$nvm</span> use cnpm</div></pre></td></tr></table></figure><br><br>切换成淘宝镜像后安装包依然使用npm install<br></font>
+
+<h3 id="二-初始化一个项目"><a href="#二-初始化一个项目" class="headerlink" title="二.初始化一个项目"></a>二.初始化一个项目</h3><p>初始化一个项目是搭建工程化前端项目的基础，他会创建一个重要的文件来描述项目的一些重要信息，这个文件是一个json文件，叫package.json,初始化项目要先建一个你即将要在里面工作的文件夹,然后切换到这个文件夹。在工作文件夹打开命令行工具，输入初始化命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> init</div></pre></td></tr></table></figure>
+<p>回车后，会让填写一些信息，默认回车即可</p>
+<p>这个时候工作目录，就会多出一个文件，package.json文件。package.json文件的作用我就不赘述了，大家可以参考朴灵的《深入浅出Node.js》一书，有详细描述。在此我们再新建一个存放入口文件的目录，比如我建了一个src文件夹。然后在src文件夹依次建一个index.html文件、一个index.js文件、一个index.css文件，建好后，我们即可安装局部webpack，及一些必要模块。</p>
+<h3 id="三-安装局部webpack和模块以及插件"><a href="#三-安装局部webpack和模块以及插件" class="headerlink" title="三.安装局部webpack和模块以及插件"></a>三.安装局部webpack和模块以及插件</h3><p>局部安装webpack，只要输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install webpack --save-dev</div></pre></td></tr></table></figure>
+<p>安装完成后，继续安装必要的模块，第一个webpack-dev-server,这个模块主要为页面提供一个服务器和实现热更新主要模块，安装依旧简单</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install webpack-dev-server --save-dev</div></pre></td></tr></table></figure>
+<p>安装完webpack-dev-server后，继续安装html-webpack-plugin，这个插件是用来向入口文件index.html里插入js脚本的，这样就不需要在index.html里引入js，安装依然使用npm</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install html-webpack-plugin --save-dev</div></pre></td></tr></table></figure>
+<p>之后再安装css加载模块，style-loader和css-loader,安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install style-loader css-loader --save-dev</div></pre></td></tr></table></figure>
+<p>这样基本完成我们所需要的模块和插件了</p>
+<h3 id="四-完成webpack-config-js的配置"><a href="#四-完成webpack-config-js的配置" class="headerlink" title="四.完成webpack.config.js的配置"></a>四.完成webpack.config.js的配置</h3><p>如何使整个项目运行起来，webpack.config.js起着至关重要的作用，webpack如何加载css，如何打包文件，都是查询这个文件后才会执行的，因此正确配置webpack.config.js非常重要，在工作目录新建一个文件webpack.config.js，如下<br><img src="http://orks6qu1s.bkt.clouddn.com/webpack.config.js.png" alt="webpack.config.js"></p>
+<h4 id="1-在文件头部引入必要模块"><a href="#1-在文件头部引入必要模块" class="headerlink" title="1.在文件头部引入必要模块"></a>1.在文件头部引入必要模块</h4><pre><code>let path = require(&apos;path&apos;), //这个模块是node的自有模块，直接引用即可，它是用来解析路径的
+    HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+</code></pre><h4 id="2-开始配置"><a href="#2-开始配置" class="headerlink" title="2.开始配置"></a>2.开始配置</h4><pre><code>module.exports = {
+    entry: {
+        app: path.resolve(__dirname, &apos;src&apos;, &apos;index.js&apos;)
+    },
+    output: {
+        filename: &apos;[name].js&apos;,
+        path: path.resolve(__dirname, &apos;dist&apos;)
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, &apos;src&apos;, &apos;index.html&apos;)
+        })
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                loader: [&apos;style-loader&apos;, &apos;css-loader&apos;],
+                include: path.resolve(__dirname, &apos;src&apos;)
+            }
+        ]
+    }
+};
+</code></pre><p>这个是整个配置，我将逐个介绍他们的意义。</p>
+<h4 id="3-各个配置的意义"><a href="#3-各个配置的意义" class="headerlink" title="3.各个配置的意义"></a>3.各个配置的意义</h4><h5 id="1-module-exports"><a href="#1-module-exports" class="headerlink" title="1.module.exports"></a>1.module.exports</h5><p>module.exports就是提供一个向外的接口，所有的配置都挂载在module.exports上，供webpack去查询</p>
+<h5 id="2-entry（入口文件）和output（出口文件）"><a href="#2-entry（入口文件）和output（出口文件）" class="headerlink" title="2.entry（入口文件）和output（出口文件）"></a>2.entry（入口文件）和output（出口文件）</h5><p>entry是用来配置入口文件的，</p>
+<pre><code>entry: {
+        app: path.resolve(__dirname, &apos;src&apos;, &apos;index.js&apos;)
+    }
+</code></pre><p>这里app: path.resolve(__dirname, ‘src’, ‘index.js’)的意思是插入到入口文件index.html的js文件路径</p>
+<pre><code>output: {
+    filename: &apos;[name].js&apos;,
+    path: path.resolve(__dirname, &apos;dist&apos;)
+}
+</code></pre><p>filename: ‘[name].js’这是出口文件的命名，即index.js,path: path.resolve(__dirname, ‘dist’)这是打包后静态资源所存放的目录文件，如果没有，webpack打包后自动创建</p>
+<h5 id="3-plugins插件的配置"><a href="#3-plugins插件的配置" class="headerlink" title="3.plugins插件的配置"></a>3.plugins插件的配置</h5><pre><code>plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, &apos;src&apos;, &apos;index.html&apos;)
+        })
+    ]
+</code></pre><p>plugins是一个数组，接受多个插件，HtmlWebpackPlugin在前面已经提到，它是将出口文件插入到入口文件index.html的插件，template: path.resolve(__dirname, ‘src’, ‘index.html’)即是将出口文件解析到入口文件的路径。</p>
+<h5 id="4-module模块"><a href="#4-module模块" class="headerlink" title="4.module模块"></a>4.module模块</h5><pre><code>module: {
+        rules: [
+            {
+                test: /\.css$/,
+                loader: [&apos;style-loader&apos;, &apos;css-loader&apos;],
+                include: path.resolve(__dirname, &apos;src&apos;)
+            }
+        ]
+    }
+</code></pre><p>模块是一个对象，可以接受多个属性，rules是用来配置js和css等文件的规则，test接受的是一个正则表达式，判断文件的类型，loader即是加载的模块的名称，接受的是一个数组，include是解析的文件所在的目录</p>
+<p>完成配置后，我们就可以进行页面的简单编写了。</p>
+<h3 id="五-开始项目的编写"><a href="#五-开始项目的编写" class="headerlink" title="五.开始项目的编写"></a>五.开始项目的编写</h3><p>这里我们将直接使用js去渲染DOM，css完成样式。</p>
+<p>打开index.html,写入基本元素即可。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;MyApp&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>之后编写index.js</p>
+<pre><code>import &apos;./index.css&apos;; //引入css文件
+
+var el = document.createElement(&apos;div&apos;),
+    text = document.createTextNode( 
+        &apos;Welcome to my app!&apos;
+     );
+
+el.appendChild(text);
+el.id = &apos;app&apos;;
+document.body.appendChild(el);
+</code></pre><p>最后编写index.css文件</p>
+<pre><code>#app {
+    color: #f00;
+}
+</code></pre><h3 id="六-运行webpack-dev-server"><a href="#六-运行webpack-dev-server" class="headerlink" title="六.运行webpack-dev-server"></a>六.运行webpack-dev-server</h3><p>在工作目录打开命令窗口，直接运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$webpack</span>-dev-server --port 3003</div></pre></td></tr></table></figure>
+<p>运行成功后，在浏览器里地址栏输入localhost:3003，查看效果，不出意外将会看到页面上的文字。</p>
+<p>到此我们其实已经完成工程化项目的基本构造，那么如何让它进行热更新呢？其实很简单，只要把命令稍稍修改就行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$webpack</span>-dev-server --inline --hot --port 3003</div></pre></td></tr></table></figure>
+<p>这时候重新加载页面，然后，在css文件里改改字体颜色，直接保存，你会发现，不需要刷新浏览器，也会理解看到页面文字的颜色变了，这就实现了代码的热更新</p>
+<font color="#f00" font-size="16px"><br>    附：<br>        如何更加简单的使用命令，只要在起初我们创建的package.json里配置即可，package.json的内容<br></font>
+
+<pre><code>{
+  &quot;name&quot;: &quot;my-app&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;构建一个舒适的前端开发环境&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;repository&quot;: {
+    &quot;type&quot;: &quot;git&quot;,
+    &quot;url&quot;: &quot;git+https://github.com/xizhouhezai/my-app.git&quot;
+  },
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;bugs&quot;: {
+    &quot;url&quot;: &quot;https://github.com/xizhouhezai/my-app/issues&quot;
+  },
+  &quot;homepage&quot;: &quot;https://github.com/xizhouhezai/my-app#readme&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.26.0&quot;,
+    &quot;babel-loader&quot;: &quot;^7.1.2&quot;,
+    &quot;babel-preset-env&quot;: &quot;^1.6.0&quot;,
+    &quot;css-loader&quot;: &quot;^0.28.7&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^2.30.1&quot;,
+    &quot;node-sass&quot;: &quot;^4.5.3&quot;,
+    &quot;sass-loader&quot;: &quot;^6.0.6&quot;,
+    &quot;style-loader&quot;: &quot;^0.18.2&quot;,
+    &quot;webpack&quot;: &quot;^3.5.5&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^2.7.1&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;^4.15.4&quot;
+  }
+}
+</code></pre><font color="#f00" font-size="16px"><br>    我们只要在scripts加入<br></font>
+
+<pre><code>&quot;start&quot;: webpack-dev-server --inline --hot --port 3003
+</code></pre><font color="#f00" font-size="16px"><br>    最后我们只要运行<br></font>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> run start</div></pre></td></tr></table></figure>
+<font color="#f00" font-size="16px"><br>    这只是测试环境，如何上线，我们只要运行<br></font>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$webpack</span></div></pre></td></tr></table></figure>
+<font color="#f00" font-size="16px"><br>    这时候工作目录就会多出一个dist文件夹，我们只要把环境配置到dist，就可以运行项目了<br></font>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/css选择器/" rel="next" title="css选择器">
+                <i class="fa fa-chevron-left"></i> css选择器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=1e8fadd704020"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="xizhouhezai" />
+          <p class="site-author-name" itemprop="name">xizhouhezai</p>
+           
+              <p class="site-description motion-element" itemprop="description">一个分享技术与心情的博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-安装webpack"><span class="nav-number">1.</span> <span class="nav-text">一.安装webpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-初始化一个项目"><span class="nav-number">2.</span> <span class="nav-text">二.初始化一个项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-安装局部webpack和模块以及插件"><span class="nav-number">3.</span> <span class="nav-text">三.安装局部webpack和模块以及插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-完成webpack-config-js的配置"><span class="nav-number">4.</span> <span class="nav-text">四.完成webpack.config.js的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在文件头部引入必要模块"><span class="nav-number">4.1.</span> <span class="nav-text">1.在文件头部引入必要模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-开始配置"><span class="nav-number">4.2.</span> <span class="nav-text">2.开始配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-各个配置的意义"><span class="nav-number">4.3.</span> <span class="nav-text">3.各个配置的意义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-module-exports"><span class="nav-number">4.3.1.</span> <span class="nav-text">1.module.exports</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-entry（入口文件）和output（出口文件）"><span class="nav-number">4.3.2.</span> <span class="nav-text">2.entry（入口文件）和output（出口文件）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-plugins插件的配置"><span class="nav-number">4.3.3.</span> <span class="nav-text">3.plugins插件的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-module模块"><span class="nav-number">4.3.4.</span> <span class="nav-text">4.module模块</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-开始项目的编写"><span class="nav-number">5.</span> <span class="nav-text">五.开始项目的编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六-运行webpack-dev-server"><span class="nav-number">6.</span> <span class="nav-text">六.运行webpack-dev-server</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xizhouhezai</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2b46d3d0db134bdd9364bfdd2027b46f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
