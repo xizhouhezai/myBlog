@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="西洲何在">
 <meta property="og:description" content="前端开发日异月新，怎么可以使我们更好或者更舒服的去做开发呢？我想作为前端开发者来说，肯定都会思考这个问题。在没有接触node.js前，我在做一些静态页面时，经常会来回的切换到浏览器刷新页面，来查看页面效果，这种感觉实在让人崩溃，但是在接触node.js后，发现了一些非常好用的工具，webpack就是其中之一，webpack的火爆，正因为他简单的配置，丰富的集成，使得gulp和grunt都在逐渐逊色">
 <meta property="og:image" content="http://orks6qu1s.bkt.clouddn.com/webpack.config.js.png">
-<meta property="og:updated_time" content="2017-09-18T06:14:50.345Z">
+<meta property="og:updated_time" content="2017-09-25T09:45:07.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack实现代码热更新">
 <meta name="twitter:description" content="前端开发日异月新，怎么可以使我们更好或者更舒服的去做开发呢？我想作为前端开发者来说，肯定都会思考这个问题。在没有接触node.js前，我在做一些静态页面时，经常会来回的切换到浏览器刷新页面，来查看页面效果，这种感觉实在让人崩溃，但是在接触node.js后，发现了一些非常好用的工具，webpack就是其中之一，webpack的火爆，正因为他简单的配置，丰富的集成，使得gulp和grunt都在逐渐逊色">
@@ -360,7 +360,7 @@
 <h3 id="一-安装webpack"><a href="#一-安装webpack" class="headerlink" title="一.安装webpack"></a>一.安装webpack</h3><p>安装webpack的前提是需要node的npm包管理的支持，在这里我就不赘述node的安装了，大家可以自行去<a href="http://nodejs.cn/" target="_blank" rel="external">node</a>(<font color="#f00">戳这里去node中文网下载和查看帮助文档</font>)官网下载安装。</p>
 <p>如果你已经安装好node，那么安装webpack将十分容易，任意地方，打开命令行工具，我们先进行全局安装，输入以下命令即可安装</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install -g webpack</div></pre></td></tr></table></figure>
-<font color="#f00"><br>附：<br>如果安装失败，很可能因为是使用国外的资源，导致安装失败，在这里我们可以使用一个好用的切换镜像资源的工具nvm，同样他也需要使用npm安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install -g nvm</div></pre></td></tr></table></figure><br><br>安装好nvm后，就可以任意切换镜像了，比如使用淘宝的镜像<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$nvm</span> use cnpm</div></pre></td></tr></table></figure><br><br>切换成淘宝镜像后安装包依然使用npm install<br></font>
+<font color="#f00"><br>附：<br>如果安装失败，很可能因为是使用国外的资源，导致安装失败，在这里我们可以使用一个好用的切换镜像资源的工具nrm，同样他也需要使用npm安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> install -g nrm</div></pre></td></tr></table></figure><br><br>安装好nrm后，就可以任意切换镜像了，比如使用淘宝的镜像<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$nrm</span> use cnpm</div></pre></td></tr></table></figure><br><br>切换成淘宝镜像后安装包依然使用npm install<br></font>
 
 <h3 id="二-初始化一个项目"><a href="#二-初始化一个项目" class="headerlink" title="二.初始化一个项目"></a>二.初始化一个项目</h3><p>初始化一个项目是搭建工程化前端项目的基础，他会创建一个重要的文件来描述项目的一些重要信息，这个文件是一个json文件，叫package.json,初始化项目要先建一个你即将要在里面工作的文件夹,然后切换到这个文件夹。在工作文件夹打开命令行工具，输入初始化命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$npm</span> init</div></pre></td></tr></table></figure>
@@ -464,7 +464,7 @@ document.body.appendChild(el);
 <p>运行成功后，在浏览器里地址栏输入localhost:3003，查看效果，不出意外将会看到页面上的文字。</p>
 <p>到此我们其实已经完成工程化项目的基本构造，那么如何让它进行热更新呢？其实很简单，只要把命令稍稍修改就行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">$webpack</span>-dev-server --inline --hot --port 3003</div></pre></td></tr></table></figure>
-<p>这时候重新加载页面，然后，在css文件里改改字体颜色，直接保存，你会发现，不需要刷新浏览器，也会理解看到页面文字的颜色变了，这就实现了代码的热更新</p>
+<p>这时候重新加载页面，然后，在css文件里改改字体颜色，直接保存，你会发现，不需要刷新浏览器，也会立刻看到页面文字的颜色变了，这就实现了代码的热更新</p>
 <font color="#f00" font-size="16px"><br>    附：<br>        如何更加简单的使用命令，只要在起初我们创建的package.json里配置即可，package.json的内容<br></font>
 
 <pre><code>{

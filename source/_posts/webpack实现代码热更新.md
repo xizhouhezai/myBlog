@@ -23,16 +23,16 @@ $npm install -g webpack
 
 <font color="#f00">
 附：
-如果安装失败，很可能因为是使用国外的资源，导致安装失败，在这里我们可以使用一个好用的切换镜像资源的工具nvm，同样他也需要使用npm安装
+如果安装失败，很可能因为是使用国外的资源，导致安装失败，在这里我们可以使用一个好用的切换镜像资源的工具nrm，同样他也需要使用npm安装
 ```bash
 
-$npm install -g nvm
+$npm install -g nrm
 
 ```
-安装好nvm后，就可以任意切换镜像了，比如使用淘宝的镜像
+安装好nrm后，就可以任意切换镜像了，比如使用淘宝的镜像
 ```bash
 
-$nvm use cnpm
+$nrm use cnpm
 
 ```
 切换成淘宝镜像后安装包依然使用npm install
